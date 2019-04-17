@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y z-push-common z-push-ipc-sharedmemory z
 RUN apt-get update && apt-get install -y z-push-backend-combined z-push-backend-imap z-push-backend-caldav z-push-backend-carddav && apt-get clean all && rm -rf /var/lib/apt/lists/*
 RUN echo "AliasMatch (?i)/Autodiscover/Autodiscover.xml '/usr/share/z-push/autodiscover/autodiscover.php'" >> /etc/apache2/sites-enabled/000-default.conf
 RUN sed -i -e "s/memory_limit = 128M/memory_limit = 512M/g" /etc/php/7.3/apache2/php.ini
+RUN wget http://download.pear.php.net/package/Auth_SASL-1.1.0.tgz && tar -zxf Auth_SASL-1.1.0.tgz Auth_SASL-1.1.0 && rm -rf /usr/share/z-push/backend/imap/Auth && mv Auth_SASL-1.1.0/Auth /usr/share/z-push/backend/imap/ && rm -rf Auth_SASL*
 VOLUME /var/log/z-push /etc/z-push /var/lib/z-push
 EXPOSE 80 
 CMD /usr/sbin/apache2ctl -D FOREGROUND
