@@ -14,7 +14,7 @@ RUN mkdir -p /var/log/z-push/ && chown www-data:www-data /var/log/z-push/
 RUN apt-get update && apt-get install -y z-push-common z-push-ipc-sharedmemory z-push-config-apache z-push-autodiscover && apt-get clean all && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get install -y z-push-backend-combined z-push-backend-imap z-push-backend-caldav z-push-backend-carddav && apt-get clean all && rm -rf /var/lib/apt/lists/*
 RUN echo "AliasMatch (?i)/Autodiscover/Autodiscover.xml '/usr/share/z-push/autodiscover/autodiscover.php'" >> /etc/apache2/sites-enabled/000-default.conf
-RUN sed -i -e "s/memory_limit = 128M/memory_limit = 512M/g" /etc/php/7.2/apache2/php.ini
+RUN sed -i -e "s/memory_limit = 128M/memory_limit = 512M/g" /etc/php/7.3/apache2/php.ini
 VOLUME /var/log/z-push /etc/z-push /var/lib/z-push
 EXPOSE 80 
 CMD /usr/sbin/apache2ctl -D FOREGROUND
