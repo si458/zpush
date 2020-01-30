@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y wget gnupg && \
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y iputils-ping wget gnupg && \
 apt-get clean all && rm -rf /var/lib/apt/lists/*
 RUN echo "deb http://ppa.launchpad.net/ondrej/apache2/ubuntu bionic main" >> /etc/apt/sources.list.d/apache2.list && \
 echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu bionic main" >> /etc/apt/sources.list.d/php.list && \
