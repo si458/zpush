@@ -17,4 +17,4 @@ RUN sed -i -e "s/memory_limit = 128M/memory_limit = 1024M/g" /etc/php/7.4/apache
 RUN sed -i -e 's/SE_UID, "UTF-8"/SE_UID/g' /usr/share/z-push/backend/imap/imap.php 
 VOLUME /var/log/z-push /etc/z-push /var/lib/z-push
 EXPOSE 80 
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+CMD /usr/sbin/apache2ctl start && : >> /var/log/z-push/z-push.log && tail -f /var/log/z-push/z-push.log
