@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y iputils-ping wget gnupg && \
 apt-get clean all && rm -rf /var/lib/apt/lists/*
