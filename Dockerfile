@@ -38,6 +38,7 @@ a2enconf z-push z-push-autodiscover && \
 chown -R www-data:www-data /usr/share/z-push /var/log/z-push /var/lib/z-push /config && \
 ln -s /usr/share/z-push/z-push-admin.php /usr/sbin/z-push-admin && \
 ln -s /usr/share/z-push/z-push-top.php /usr/sbin/z-push-top && \
+echo "<?php define(\"ZPUSH_VERSION\", \"${ZPUSH_VERSION}\");" > /usr/share/z-push/version.php && \
 sed -i -e 's/SE_UID, "UTF-8"/SE_UID/g' /usr/share/z-push/backend/imap/imap.php
 VOLUME /var/log/z-push /var/lib/z-push /config
 EXPOSE 80
