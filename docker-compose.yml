@@ -1,10 +1,10 @@
 version: '2'
 services:
   zpush: 
-    image: si458/zpush:latest
+    image: si458/zpush:2.5.2
     volumes:
       - logs:/var/log/z-push
-      - config:/etc/z-push
+      - config:/config
       - data:/var/lib/z-push
     restart: always
     ports:
