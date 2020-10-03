@@ -55,12 +55,12 @@ logfiles=(
 for i in "${logfiles[@]}"; do
     if [ ! -f /var/log/z-push/$i ]; then
         touch /var/log/z-push/$i
-        chown www-data:www-data /var/log/z-push/$i
         echo "created blank $i in /var/log/z-push"
     else
         echo "$i already exists in /var/log/z-push"
     fi
 done
+chown -R www-data:www-data /var/log/z-push /var/lib/z-push /usr/share/z-push
 data=(
     "users"
     "settings"
@@ -70,6 +70,5 @@ for i in "${data[@]}"; do
         /usr/sbin/z-push-admin -a fixstates
     fi
 done
-# echo ${backend[@]}
 /usr/sbin/apache2ctl start &
 tail -qF /var/log/z-push/*.log
