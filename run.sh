@@ -1,8 +1,12 @@
 #!/bin/bash
-singleandlink(){
-    local from="$1" 
+timezone="${TZ:-UTC}"
+statemachine="${STATEMACHINE:-FILE}"
+ln -fs /usr/share/zoneinfo/$timezone /etc/localtime
+dpkg-reconfigure --frontend noninteractive tzdata
+singleandlink() {
+    local from="$1"
     local to="$2"
-    IFS='/' read -ra FILENAME <<<"$to" 
+    IFS='/' read -ra FILENAME <<<"$to"
     if [ ! -f $to ]; then
         cp $from $to
         echo "copied default ${FILENAME[2]} to /config"
@@ -51,6 +55,7 @@ logfiles=(
     "z-push-error.log"
     "autodiscover.log"
     "autodiscover-error.log"
+    "cron.log"
 )
 for i in "${logfiles[@]}"; do
     if [ ! -f /var/log/z-push/$i ]; then
@@ -61,6 +66,11 @@ for i in "${logfiles[@]}"; do
     fi
 done
 chown -R www-data:www-data /var/log/z-push /var/lib/z-push /usr/share/z-push
+if [ "$statemachine" == "FILE" ]; then
+    echo "* * * * * /checkfile.sh /var/lib/z-push/users >> /var/log/z-push/cron.log 2>&1" >/etc/cron.d/checkfile
+    chmod 0644 /etc/cron.d/checkfile
+    crontab /etc/cron.d/checkfile
+fi
 data=(
     "users"
     "settings"
@@ -71,4 +81,5 @@ for i in "${data[@]}"; do
     fi
 done
 /usr/sbin/apache2ctl start &
+cron &
 tail -qF /var/log/z-push/*.log
