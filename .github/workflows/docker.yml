@@ -14,7 +14,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: name/app
+          images: si458/zpush
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -34,7 +34,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/si458/zpush:${{ steps.docker_meta.outputs.tags }}
+          tags: ghcr.io/${{ steps.docker_meta.outputs.tags }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
