@@ -1,7 +1,8 @@
 FROM debian:buster-slim
 ENV DEBIAN_FRONTEND=noninteractive
-ENV ZPUSH_VERSION=2.5.2
+ENV ZPUSH_VERSION=2.6.0
 ENV PHP_VERSION=7.3
+ENV GIT_HEADS_OR_TAGS=tags
 ADD run.sh /run.sh
 ADD checkfile.sh /checkfile.sh
 RUN chmod a+x /run.sh /checkfile.sh && apt-get update && apt-get dist-upgrade -y && apt-get install -y curl tzdata cron && \
@@ -29,7 +30,7 @@ RUN chmod a+x /run.sh /checkfile.sh && apt-get update && apt-get dist-upgrade -y
     apt-get clean all && rm -rf /var/lib/apt/lists/* && \
     sed -i -e "s/memory_limit = 128M/memory_limit = 1024M/g" /etc/php/${PHP_VERSION}/apache2/php.ini && \
     mkdir -p /usr/share/z-push /var/log/z-push /var/lib/z-push /config && \
-    curl -Lo /tmp/zpush.tar.gz "https://stash.z-hub.io/rest/api/latest/projects/ZP/repos/z-push/archive?at=refs/tags/${ZPUSH_VERSION}&format=tgz" && \
+    curl -Lo /tmp/zpush.tar.gz "https://stash.z-hub.io/rest/api/latest/projects/ZP/repos/z-push/archive?at=refs/${GIT_HEADS_OR_TAGS}/${ZPUSH_VERSION}&format=tgz" && \
     tar -xzf /tmp/zpush.tar.gz -C /tmp/ && \
     mv /tmp/config/apache2/* /etc/apache2/conf-available/ && \
     mv /tmp/src/* /usr/share/z-push/ && \
@@ -39,8 +40,7 @@ RUN chmod a+x /run.sh /checkfile.sh && apt-get update && apt-get dist-upgrade -y
     chown -R www-data:www-data /usr/share/z-push /var/log/z-push /var/lib/z-push /config && \
     ln -s /usr/share/z-push/z-push-admin.php /usr/sbin/z-push-admin && \
     ln -s /usr/share/z-push/z-push-top.php /usr/sbin/z-push-top && \
-    echo "<?php define(\"ZPUSH_VERSION\", \"${ZPUSH_VERSION}\");" > /usr/share/z-push/version.php && \
-    sed -i -e 's/SE_UID, "UTF-8"/SE_UID/g' /usr/share/z-push/backend/imap/imap.php
+    echo "<?php define(\"ZPUSH_VERSION\", \"${ZPUSH_VERSION}\");" > /usr/share/z-push/version.php
 VOLUME /var/log/z-push /var/lib/z-push /config
 EXPOSE 80
 CMD /run.sh
