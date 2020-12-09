@@ -15,6 +15,7 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: si458/zpush
+          tag-latest: false
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
