@@ -1,7 +1,7 @@
 version: '2'
 services:
   zpush: 
-    image: si458/zpush:2.6.0
+    image: si458/zpush:2.6.2
     volumes:
       - logs:/var/log/z-push
       - config:/config
