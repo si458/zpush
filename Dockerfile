@@ -1,10 +1,9 @@
 FROM debian:buster-slim
 ENV DEBIAN_FRONTEND=noninteractive
-ENV ZPUSH_VERSION=2.6.0
+ENV ZPUSH_VERSION=2.6.2
 ENV PHP_VERSION=7.3
 ENV GIT_HEADS_OR_TAGS=tags
-ADD run.sh /run.sh
-ADD checkfile.sh /checkfile.sh
+COPY run.sh checkfile.sh /
 RUN chmod a+x /run.sh /checkfile.sh && apt-get update && apt-get dist-upgrade -y && apt-get install -y curl tzdata cron && \
     curl -sSL -o /etc/apt/trusted.gpg.d/php.gpg http://packages.sury.org/php/apt.gpg && \
     sh -c 'echo "deb http://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list' && \
