@@ -1,6 +1,6 @@
 FROM debian:buster-slim
 ENV DEBIAN_FRONTEND=noninteractive
-ENV ZPUSH_VERSION=2.6.3
+ENV ZPUSH_VERSION=2.6.4
 ENV PHP_VERSION=7.3
 ENV GIT_HEADS_OR_TAGS=tags
 COPY run.sh checkfile.sh /
