@@ -1,6 +1,6 @@
 FROM debian:buster-slim
 ENV DEBIAN_FRONTEND=noninteractive
-ENV ZPUSH_VERSION=2.6.2
+ENV ZPUSH_VERSION=2.6.3
 ENV PHP_VERSION=7.3
 ENV GIT_HEADS_OR_TAGS=tags
 COPY run.sh checkfile.sh /
@@ -29,7 +29,7 @@ RUN chmod a+x /run.sh /checkfile.sh && apt-get update && apt-get dist-upgrade -y
     apt-get clean all && rm -rf /var/lib/apt/lists/* && \
     sed -i -e "s/memory_limit = 128M/memory_limit = 1024M/g" /etc/php/${PHP_VERSION}/apache2/php.ini && \
     mkdir -p /usr/share/z-push /var/log/z-push /var/lib/z-push /config && \
-    curl -Lo /tmp/zpush.tar.gz "https://stash.z-hub.io/rest/api/latest/projects/ZP/repos/z-push/archive?at=refs/${GIT_HEADS_OR_TAGS}/${ZPUSH_VERSION}&format=tgz" && \
+    curl -Lo /tmp/zpush.tar.gz "https://stash.kopano.io/rest/api/latest/projects/ZHUB/repos/z-push/archive?at=refs/${GIT_HEADS_OR_TAGS}/${ZPUSH_VERSION}&format=tgz" && \
     tar -xzf /tmp/zpush.tar.gz -C /tmp/ && \
     mv /tmp/config/apache2/* /etc/apache2/conf-available/ && \
     mv /tmp/src/* /usr/share/z-push/ && \
