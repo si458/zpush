@@ -15,10 +15,9 @@ jobs:
       -
         name: Docker meta
         id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
+        uses: docker/metadata-action@v1
         with:
           images: si458/zpush
-          tag-latest: false
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
