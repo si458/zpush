@@ -1,7 +1,7 @@
 version: '2'
 services:
   zpush: 
-    image: ghcr.io/si458/zpush:2.7.0
+    image: ghcr.io/si458/zpush:2.7.1
     volumes:
       - logs:/var/log/z-push
       - config:/config
