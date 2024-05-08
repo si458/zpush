@@ -14,6 +14,7 @@ RUN chmod a+x /run.sh /checkfile.sh && apt-get update && apt-get dist-upgrade -y
     php8.1-xml \
     php8.1-ldap \
     php8.1-imap \
+    php8.1-intl \
     php8.1-soap \
     php8.1-mbstring \
     php8.1-memcached \
