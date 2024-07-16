@@ -1,6 +1,6 @@
 FROM ubuntu:jammy
 ENV DEBIAN_FRONTEND=noninteractive
-ENV ZPUSH_VERSION=2.7.2
+ENV ZPUSH_VERSION=2.7.3
 COPY run.sh checkfile.sh /
 RUN chmod a+x /run.sh /checkfile.sh && apt-get update && apt-get dist-upgrade -y && apt-get install -y curl tzdata cron software-properties-common && \
     LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php && \
